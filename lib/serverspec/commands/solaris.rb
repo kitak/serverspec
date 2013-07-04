@@ -13,8 +13,10 @@ module Serverspec
         cmd
       end
 
-      def check_listening(port)
+      def check_listening(port, opts)
+        protocol = opts[0]
         regexp = "\.#{port} "
+        regexp = "^#{protocol} .*#{regexp}" if protocol
         "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- #{escape(regexp)}"
       end
 
