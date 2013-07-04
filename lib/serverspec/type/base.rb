@@ -1,8 +1,9 @@
 module Serverspec
   module Type
     class Base
-      def initialize(name=nil)
+      def initialize(name=nil, opts=nil)
         @name = name
+        @opts = opts
       end
 
       def to_s

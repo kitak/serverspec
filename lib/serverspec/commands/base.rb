@@ -72,8 +72,10 @@ module Serverspec
         raise NotImplementedError.new
       end
 
-      def check_listening(port)
+      def check_listening(port, opts)
+        protocol = opts[0]
         regexp = ":#{port} "
+        regexp = "^#{protocol} .*#{regexp}" if protocol
         "netstat -tunl | grep -- #{escape(regexp)}"
       end
 

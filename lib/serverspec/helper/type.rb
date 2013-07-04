@@ -11,7 +11,8 @@ module Serverspec
       types.each do |type|
         define_method type do |*args|
           name = args.first
-          self.class.const_get('Serverspec').const_get('Type').const_get(camelize(type)).new(name)
+          opts = args[1..-1]
+          self.class.const_get('Serverspec').const_get('Type').const_get(camelize(type)).new(name, opts)
         end
       end
 
