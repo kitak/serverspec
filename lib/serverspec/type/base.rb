@@ -1,7 +1,7 @@
 module Serverspec
   module Type
     class Base
-      def initialize(name=nil, opts=nil)
+      def initialize(name=nil, opts=[])
         @name = name
         @opts = opts
       end
@@ -10,7 +10,11 @@ module Serverspec
         type = self.class.name.split(':')[-1]
         type.gsub!(/([a-z\d])([A-Z])/, '\1 \2')
         type.capitalize!
-        %Q!#{type} "#{@name}"!
+        if @opts.size > 0
+          %Q!#{type} "#{@name}, #{@opts.join(", ")}"!
+        else
+          %Q!#{type} "#{@name}"!
+        end
       end
     end
   end
